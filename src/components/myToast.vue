@@ -7,12 +7,7 @@
     :style="{ '--progress-color': state == 'alert' ? 'red' : 'green' }"
     :name="handleTransitionName"
   >
-    <section
-      v-if="showToast"
-      @click="closeToast"
-      :class="handlePositionClass"
-      class="container"
-    >
+    <section @click="closeToast" :class="handlePositionClass" class="container">
       <button @click="closeToast" class="delete-button">x</button>
       <div class="content">
         <img
@@ -21,7 +16,7 @@
           :src="require(`../assets/${state}.svg`)"
           alt=""
         />
-        <span>Lorem ipsum dolor sit amet {{ animation }}.</span>
+        <span>{{ message }}</span>
       </div>
       <div :style="{ width: progress + '%' }" class="progress-bar"></div>
     </section>
@@ -47,6 +42,7 @@ const injections = inject("injections");
 
 const progress = ref(0);
 const position = injections.position ?? props.position;
+const message = injections.message ?? props.message;
 const state = injections.state ?? props.state;
 const showToast = ref(true);
 function closeToast() {
@@ -88,9 +84,7 @@ const handlePositionClass = computed(() => {
 onMounted(() => {
   const progressInterval = setInterval(() => {
     progress.value < 100 ? (progress.value += 1) : undefined;
-    progress.value === 100
-      ? (clearInterval(progressInterval), setTimeout(closeToast, 1300))
-      : undefined;
+    progress.value === 100 ? clearInterval(progressInterval) : undefined;
   }, 20);
 });
 </script>

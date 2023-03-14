@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <my-toast :show="showToast"></my-toast>
+    <my-toast></my-toast>
   </div>
 </template>
 <script>
@@ -10,7 +10,7 @@ export default {
   },
   methods: {},
   mounted() {
-    this.$toast();
+    this.$test();
   },
 };
 </script>
