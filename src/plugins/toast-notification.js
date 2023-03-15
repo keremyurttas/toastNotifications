@@ -15,6 +15,10 @@ export default {
         handleContainer(options.position);
         createToast(options, message, "alert");
       },
+      warning(message) {
+        handleContainer(options.position);
+        createToast(options, message, "warning");
+      },
     };
     app.config.globalProperties.$toast = instance;
   },

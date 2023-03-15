@@ -1,7 +1,10 @@
 <template>
   <transition
     appear
-    :style="{ '--progress-color': state == 'alert' ? 'red' : 'green' }"
+    :style="{
+      '--progress-color':
+        state == 'alert' ? 'red' : state == 'warning' ? 'yellow' : 'green',
+    }"
     :name="handleTransitionName"
   >
     <section

@@ -4,7 +4,7 @@ import toast from "./plugins/toast-notification";
 
 const app = createApp(App);
 app.use(toast, {
-  position: "bottomRight",
+  position: "topCenter",
   duration: 5000,
 });
 app.mount("#app");
