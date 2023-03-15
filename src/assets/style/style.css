@@ -21,9 +21,8 @@ body * {
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
-.screen {
-  width: 100vw;
-  height: 100vh;
+#toastContainer {
+  position: fixed;
 }
 section {
   cursor: pointer;
@@ -33,13 +32,14 @@ button {
   border: none;
   cursor: pointer;
 }
-.container {
+.toast {
   padding: 1rem;
   background-color: var(--container-bg);
   width: fit-content;
   border-radius: 10px;
-  position: fixed;
+  position: relative;
   padding-right: 3rem;
+  margin-bottom: 1rem;
 }
 .content {
   display: flex;
@@ -48,6 +48,7 @@ button {
 }
 .content span {
   max-width: 250px;
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -79,22 +80,22 @@ button {
   left: calc(50%);
 }
 
-.top-left {
+.topLeft {
   top: 20px;
   left: 20px;
 }
 
-.top-right {
+.topRight {
   top: 20px;
   right: 20px;
 }
 
-.bottom-left {
+.bottomLeft {
   bottom: 20px;
   left: 20px;
 }
 
-.bottom-right {
+.bottomRight {
   bottom: 20px;
   right: 20px;
 }

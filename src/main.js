@@ -4,8 +4,7 @@ import toast from "./plugins/toast-notification";
 
 const app = createApp(App);
 app.use(toast, {
-  position: "topLeft",
-  state: "success",
-  message: "Message Succesfully Sent!",
+  position: "bottomRight",
+  duration: 5000,
 });
 app.mount("#app");

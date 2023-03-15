@@ -1,13 +1,15 @@
 <template>
-  <button @click="showToast = !showToast">toggle</button>
-
-  <br />
-  <span>{{ injections }}</span>
   <transition
+    appear
     :style="{ '--progress-color': state == 'alert' ? 'red' : 'green' }"
     :name="handleTransitionName"
   >
-    <section @click="closeToast" :class="handlePositionClass" class="container">
+    <section
+      v-if="showToast"
+      @click="closeToast"
+      :class="handlePositionClass"
+      class="toast"
+    >
       <button @click="closeToast" class="delete-button">x</button>
       <div class="content">
         <img
@@ -33,17 +35,32 @@ import {
   ref,
   defineEmits,
   defineProps,
-  inject,
   computed,
+  defineComponent,
+  onBeforeUnmount,
 } from "vue";
 const emits = defineEmits(["delete"]);
-const props = defineProps(["animation"]);
-const injections = inject("injections");
+const props = defineProps({
+  message: {
+    type: String,
+    default: "message",
+  },
+  position: {
+    type: String,
+    default: "topLeft",
+  },
+  state: {
+    type: String,
+    default: "topLeft",
+  },
+  duration: {
+    type: Number,
+    default: 2000,
+  },
+});
 
 const progress = ref(0);
-const position = injections.position ?? props.position;
-const message = injections.message ?? props.message;
-const state = injections.state ?? props.state;
+
 const showToast = ref(true);
 function closeToast() {
   emits("delete", false);
@@ -51,40 +68,50 @@ function closeToast() {
   progress.value = 0;
 }
 const handleTransitionName = computed(() => {
-  return position == "topLeft"
+  return props.position == "topLeft"
     ? "fromRight"
-    : position == "topRight"
+    : props.position == "topRight"
     ? "fromRight"
-    : position == "bottomRight"
+    : props.position == "bottomRight"
     ? "fromLeft"
-    : position == "bottomLeft"
+    : props.position == "bottomLeft"
     ? "fromRight"
-    : position == "bottomCenter"
+    : props.position == "bottomCenter"
     ? "fromBottom"
-    : position == "topCenter"
+    : props.position == "topCenter"
     ? "fromTop"
     : undefined;
 });
 const handlePositionClass = computed(() => {
-  return position == "topLeft"
+  return props.position == "topLeft"
     ? "top-left"
-    : position == "topRight"
+    : props.position == "topRight"
     ? "top-right"
-    : position == "bottomRight"
+    : props.position == "bottomRight"
     ? "bottom-right"
-    : position == "bottomLeft"
+    : props.position == "bottomLeft"
     ? "bottom-left"
-    : position == "bottomCenter"
+    : props.position == "bottomCenter"
     ? "bottom"
-    : position == "topCenter"
+    : props.position == "topCenter"
     ? "top"
     : undefined;
 });
 
 onMounted(() => {
+  console.log(props);
+
   const progressInterval = setInterval(() => {
     progress.value < 100 ? (progress.value += 1) : undefined;
+
     progress.value === 100 ? clearInterval(progressInterval) : undefined;
-  }, 20);
+  }, props.duration / 120);
+  setTimeout(() => {
+    showToast.value = false;
+  }, props.duration - 500);
 });
+defineComponent({
+  name: "myToast",
+});
+onBeforeUnmount(() => {});
 </script>
