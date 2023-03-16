@@ -7,33 +7,35 @@ export default {
     app.provide("injections", options);
 
     const instance = {
-      success(message) {
+      success(message, onClick) {
         handleContainer(options.position);
-        createToast(options, message, "success");
+        createToast("success", options, message, onClick);
       },
-      alert(message) {
+      alert(message, onClick) {
         handleContainer(options.position);
-        createToast(options, message, "alert");
+        createToast("alert", options, message, onClick);
       },
-      warning(message) {
+      warning(message, onClick) {
         handleContainer(options.position);
-        createToast(options, message, "warning");
+        createToast("warning", options, message, onClick);
       },
     };
     app.config.globalProperties.$toast = instance;
   },
 };
 let containerId = 1;
-function createToast(options, message, state) {
+function createToast(state, options, message, onClick) {
   const container = document.createElement("div");
   container.id = `toast-container-${containerId++}`;
   document.getElementById("toastContainer").appendChild(container);
 
   const myElement = createApp(myToast, {
+    state: state,
     message: message,
     position: options.position,
     duration: options.duration,
-    state: state,
+    dissmisible: options.dissmisible,
+    onClick: onClick,
   });
 
   myElement.mount(`#${container.id}`);
@@ -48,8 +50,8 @@ function handleContainer(position) {
     const container = document.createElement("div");
     container.id = "toastContainer";
     container.classList.add(position);
-    console.log(position);
-
     document.body.appendChild(container);
+  } else {
+    document.getElementById("toastContainer").classList.add(position);
   }
 }

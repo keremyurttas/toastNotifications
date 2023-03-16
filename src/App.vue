@@ -2,8 +2,8 @@
   <div class="">
     <button @click="triggerSuccess">Trigger success</button>
     <button @click="triggerAlert">Trigger alert</button>
+
     <button @click="triggerWarning">Trigger warning</button>
-    <div id="container"></div>
   </div>
 </template>
 <script>
@@ -13,7 +13,10 @@ export default {
   },
   methods: {
     triggerSuccess() {
-      this.$toast.success("SUCCESS");
+      this.$toast.success("SUCCESS", this.test);
+    },
+    test() {
+      console.log("sss");
     },
     triggerAlert() {
       this.$toast.alert("ALERTALERTALERTALERT");
@@ -24,3 +27,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+button {
+  background-color: gainsboro;
+  padding: 1rem;
+  margin: 2rem;
+}
+</style>

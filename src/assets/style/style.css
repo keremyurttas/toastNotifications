@@ -25,9 +25,7 @@ body * {
   position: fixed;
   z-index: 99999;
 }
-section {
-  cursor: pointer;
-}
+
 button {
   background-color: transparent;
   border: none;
