@@ -13,16 +13,16 @@ export default {
   },
   methods: {
     triggerSuccess() {
-      this.$toast.success("SUCCESS", this.test);
+      this.$toast.success("SUCCESS", this.toastClick);
     },
-    test() {
-      console.log("sss");
+    toastClick() {
+      alert("toast click event");
     },
     triggerAlert() {
-      this.$toast.alert("ALERTALERTALERTALERT");
+      this.$toast.alert("ALERT");
     },
     triggerWarning() {
-      this.$toast.warning("Warning");
+      this.$toast.warning("WARNING");
     },
   },
 };

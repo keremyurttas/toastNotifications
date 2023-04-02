@@ -1,30 +1,33 @@
 import { createApp } from "vue";
 import myToast from "../components/myToast.vue";
-
+let containerId = 1;
 export default {
   install: (app, options) => {
     app.component("my-toast", myToast);
     app.provide("injections", options);
 
     const instance = {
-      success(message, onClick) {
+      success(message, toastClick) {
         handleContainer(options.position);
-        createToast("success", options, message, onClick);
+        createToast("success", options, message, toastClick);
+        return containerId;
       },
-      alert(message, onClick) {
+      alert(message, toastClick) {
         handleContainer(options.position);
-        createToast("alert", options, message, onClick);
+        createToast("alert", options, message, toastClick);
+        return containerId;
       },
-      warning(message, onClick) {
+      warning(message, toastClick) {
         handleContainer(options.position);
-        createToast("warning", options, message, onClick);
+        createToast("warning", options, message, toastClick);
+        return containerId;
       },
     };
     app.config.globalProperties.$toast = instance;
   },
 };
-let containerId = 1;
-function createToast(state, options, message, onClick) {
+
+function createToast(state, options, message, toastClick) {
   const container = document.createElement("div");
   container.id = `toast-container-${containerId++}`;
   document.getElementById("toastContainer").appendChild(container);
@@ -35,7 +38,7 @@ function createToast(state, options, message, onClick) {
     position: options.position,
     duration: options.duration,
     dissmisible: options.dissmisible,
-    onClick: onClick,
+    toastClick: toastClick,
   });
 
   myElement.mount(`#${container.id}`);

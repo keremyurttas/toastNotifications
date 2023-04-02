@@ -11,10 +11,9 @@
       v-if="showToast"
       @click="
         {
-          onClick(), dissmisible ? closeToast() : undefined;
+          toastClick(), dissmisible ? closeToast() : undefined;
         }
       "
-      :class="handlePositionClass"
       :style="{ cursor: dissmisible ? 'pointer' : 'default' }"
       class="toast"
     >
@@ -41,29 +40,46 @@
 </style>
 <script setup>
 import { onMounted, ref, defineEmits, defineProps, computed } from "vue";
+import { positions } from "../constants/positions";
+import { states } from "../constants/states";
 const emits = defineEmits(["delete"]);
 const props = defineProps({
   message: {
     type: String,
     default: "message",
+    validator(value) {
+      return typeof value == "string";
+    },
   },
   position: {
     type: String,
     default: "topLeft",
+    validator(value) {
+      return positions.includes(value);
+    },
   },
   state: {
     type: String,
-    default: "topLeft",
+    default: "success",
+    validator(value) {
+      return states.includes(value);
+    },
   },
   duration: {
     type: Number,
     default: 2000,
+    validator(value) {
+      return typeof value === "number";
+    },
   },
   dissmisible: {
     type: Boolean,
     default: true,
+    validator(value) {
+      return typeof value === "boolean";
+    },
   },
-  onClick: {
+  toastClick: {
     type: Function,
     default: () => {},
   },
@@ -78,34 +94,12 @@ function closeToast() {
   progress.value = 0;
 }
 const handleTransitionName = computed(() => {
-  return props.position == "topLeft"
-    ? "fromRight"
-    : props.position == "topRight"
-    ? "fromLeft"
-    : props.position == "bottomRight"
-    ? "fromLeft"
-    : props.position == "bottomLeft"
-    ? "fromRight"
-    : props.position == "bottomCenter"
-    ? "fromBottom"
-    : props.position == "topCenter"
-    ? "fromTop"
-    : undefined;
-});
-const handlePositionClass = computed(() => {
-  return props.position == "topLeft"
-    ? "top-left"
-    : props.position == "topRight"
-    ? "top-right"
-    : props.position == "bottomRight"
-    ? "bottom-right"
-    : props.position == "bottomLeft"
-    ? "bottom-left"
-    : props.position == "bottomCenter"
-    ? "bottom"
-    : props.position == "topCenter"
-    ? "top"
-    : undefined;
+  return props.position.includes("Right")
+    ? "rightTransition"
+    : props.position.includes("Left")
+    ? "leftTransition"
+    : //for topCenter and bottomCenter
+      props.position + "Transition";
 });
 
 onMounted(() => {

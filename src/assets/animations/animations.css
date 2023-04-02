@@ -1,25 +1,25 @@
-.fromTop-enter-active {
+.topCenterTransition-enter-active {
   animation: fromTop 0.7s;
 }
-.fromTop-leave-active {
+.topCenterTransition-leave-active {
   animation: fromTop 0.7s reverse;
 }
-.fromBottom-enter-active {
+.bottomCenterTransition-enter-active {
   animation: fromBottom 0.7s;
 }
-.fromBottom-leave-active {
+.bottomCenterTransition-leave-active {
   animation: fromBottom 0.7s reverse;
 }
-.fromRight-enter-active {
+.leftTransition-enter-active {
   animation: fromRight 0.7s;
 }
-.fromRight-leave-active {
+.leftTransition-leave-active {
   animation: fromRight 0.7s reverse;
 }
-.fromLeft-enter-active {
+.rightTransition-enter-active {
   animation: fromLeft 0.7s;
 }
-.fromLeft-leave-active {
+.rightTransition-leave-active {
   animation: fromLeft 0.7s reverse;
 }
 
