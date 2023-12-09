@@ -29,6 +29,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 Register the plugin to your Vue project in main.js file.
 
 ```
+import toast from "toast-notificationss";
 const app = createApp(App);
 app.use(toast, {
   position: "bottomCenter",
