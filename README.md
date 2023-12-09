@@ -1,5 +1,8 @@
 # toast-notifications
-
+## Package setup
+```
+npm i toast-notificationss
+```
 ## Project setup
 ```
 npm install
